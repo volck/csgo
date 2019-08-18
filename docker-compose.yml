@@ -1,0 +1,13 @@
+#sudo docker run -d -p 27015:27015 -p 27015:27015/udp csgo_test -console -usercon +game_type 0 game_mode 1 +mapgropup mg_active +map de_cache +sv_setsteamaccount 825C9ECB9E6CB1A0AF9BC68E5288C9C8
+#
+#
+version: '3'
+services:
+  csgo:
+   image: csgo_test
+   command: '-console -usercon +game_type 0 game_mode 1 +mapgropup mg_active +map de_cache +sv_setsteamaccount 825C9ECB9E6CB1A0AF9BC68E5288C9C8'
+   ports:
+     - "27015:27015"
+     - "27015:27015/udp"
+   volumes:
+           - ./server2.cfg:/home/csgo/hlserver/csgo/csgo/cfg/server.cfg
