@@ -5,7 +5,7 @@ version: '3'
 services:
   csgo:
    image: csgo_test
-   command: '-console -usercon +game_type 0 game_mode 1 +mapgropup mg_active +map de_cache +sv_setsteamaccount 825C9ECB9E6CB1A0AF9BC68E5288C9C8'
+   command: '-console -usercon +game_type 0 game_mode 1 -autoupdate +mapgropup mg_active +map de_cache +sv_setsteamaccount 825C9ECB9E6CB1A0AF9BC68E5288C9C8'
    ports:
      - "27015:27015"
      - "27015:27015/udp"

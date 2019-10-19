@@ -2,7 +2,13 @@ from csgo
 ADD ./server.cfg $SERVER/csgo/csgo/cfg/server.cfg
 ADD ./autoexec.cfg $server/csgo/csgo/cfg/autoexec.cfg
 RUN mkdir -p /home/csgo/hlserver/csgo/csgo/addons
+#RUN $SERVER/update.sh
 RUN curl https://mms.alliedmods.net/mmsdrop/1.10/mmsource-1.10.7-git970-linux.tar.gz | tar -C /home/csgo/hlserver/csgo/csgo/ -xvz
 RUN curl https://sm.alliedmods.net/smdrop/1.9/sourcemod-1.9.0-git6281-linux.tar.gz | tar -C /home/csgo/hlserver/csgo/csgo -xvz
+RUN curl http://users.alliedmods.net/~kyles/builds/SteamWorks/SteamWorks-git131-linux.tar.gz | tar -C /home/csgo/hlserver/csgo/csgo -xvz
+#RUN curl `curl -sL https://api.github.com/repos/splewis/get5/releases | grep browser_download_url | head -n 1 | sed 's/"browser_download_url": "//g' | sed 's/"//g' | sed 's/        //g'` | unzip
 ##RUN curl https://bitbucket.org/warmod/warmod.bitbucket.org/raw/c3429d1f880d64784f0a78f30b51320b110ff8f5/plugins/warmod.smx -o /home/csgo/hlserver/csgo/addons/sourcemod/plugins/warmod.smx 	    
-ADD ./warmod.smx /home/csgo/hlserver/csgo/csgo/addons/sourcemod/plugins
+#ADD ./warmod.smx /home/csgo/hlserver/csgo/csgo/addons/sourcemod/plugins
+COPY ./drop/addons /home/csgo/hlserver/csgo/csgo/addons
+COPY ./drop/cfg /home/csgo/hlserver/csgo/csgo/cfg
+RUN /home/csgo/hlserver/update.sh
