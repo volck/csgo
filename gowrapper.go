@@ -68,7 +68,7 @@ func main() {
 
 	fmt.Println(">>> Starting health checking")
 	go doHealth(s)
-	go doPing()
+	go doPing(s)
 	fmt.Println(">>> Starting wrapper for csgo!")
 	cmd := exec.Command("/home/csgo/hlserver/csgo.sh") // #nosec
 	cmd.Stderr = &interceptor{forward: os.Stderr}
@@ -104,7 +104,7 @@ func doHealth(sdk *sdk.SDK) {
 	}
 }
 
-func doPing() {
+func doPing(sdk *sdk.SDK) {
 	tick := time.Tick(2 * time.Second)
 	for {
 		fmt.Printf(">>> doPing() got ip: %s \n", getIP())
@@ -120,7 +120,11 @@ func doPing() {
 			fmt.Printf("steam: could not get server info from %v: %v\n", addr, err)
 
 		}
-		fmt.Printf("steam: info of %v: %v\n", addr, info)
+		if info != nil {
+			fmt.Printf("steam: info of %v: %v\n", addr, info)
+			sdk.Ready()
+			break
+		}
 		<-tick
 
 	}
